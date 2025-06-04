@@ -181,7 +181,7 @@ export class PersonRepository {
         qb
           .orderBy(sql`NULLIF(person.name, '') is null`, 'asc')
           .orderBy((eb) => eb.fn.count('asset_faces.assetId'), 'desc')
-          .orderBy(sql`NULLIF(person.name, '')`, sql`asc nulls last`)
+          .orderBy(sql`NULLIF(person.name, '') asc nulls last`)
           .orderBy('person.createdAt'),
       )
       .$if(!options?.withHidden, (qb) => qb.where('person.isHidden', '=', false))
